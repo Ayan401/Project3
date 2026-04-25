@@ -1,30 +1,43 @@
-# Robot Movement Simulator (Broken Version)
-
 x = 0
 y = 0
 
-def move(command):
-    if command == "forward":
-        y = y + 1   # ❌ local variable issue
-    elif command == "backward":
-        y = y - 1
-    elif command == "right":
-        x = x + 1
-    elif command == "left":
-        x = x - 1
-    else:
-        print("Invalid command")
+GRID_MIN = -5
+GRID_MAX = 5
 
+def move(command):
+    global x, y  #Fixed scope
+
+    if command == "forward":
+        if y + 1 <= GRID_MAX:
+            y += 1
+        else:
+            print("Boundary reached!")
+    elif command == "backward":
+        if y - 1 >= GRID_MIN:
+            y -= 1
+        else:
+            print("Boundary reached!")
+    elif command == "right":
+        if x + 1 <= GRID_MAX:
+            x += 1
+        else:
+            print("Boundary reached!")
+    elif command == "left":
+        if x - 1 >= GRID_MIN:
+            x -= 1
+        else:
+            print("Boundary reached!")
+    else:
+        print("Invalid command! Use: forward, backward, left, right")
 
 def print_position():
-    print("Position:", x, y)
-
+    print(f"Position: ({x}, {y})")  # ✅ clearer format
 
 while True:
-    cmd = input("Enter command (forward/backward/left/right/exit): ")
+    cmd = input("Enter command (forward/backward/left/right/exit): ").lower().strip()
     
     if cmd == "exit":
         break
-    
+    a
     move(cmd)
     print_position()
